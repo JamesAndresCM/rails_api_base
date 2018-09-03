@@ -8,6 +8,11 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       # devuelve el token una vez creado el usuario (evita tener que crear user y luego obtener el token)
       auth_token = Knock::AuthToken.new payload: { sub: user.id }
+
+      #devuelve JWT mas propiedades de usuario al momento de registrarse
+      #user_data = {email: user.email, username: user.username, role: user.role}
+      #render json: {token: auth_token.token, user: user_data}, status: :created
+      
       render json: auth_token, status: :created
     else
       render json: {status: 422, msg: user.errors}
