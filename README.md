@@ -10,6 +10,15 @@
 - Versionamiento mediante Concerns en routing
 - Prevención de requests masivas mediante la gema rack-attack
 
+### Instalación
+```bash
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed
+rails server
+```
+
 ### Usuario Admin por defecto
 - email: admin@domain.com
 - password: admin123
@@ -81,12 +90,9 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
  ```bash
  curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/admin/users
  ```
- 
-### Instalación
-```bash
-bundle install
-rails db:create
-rails db:migrate
-rails db:seed
-rails server
-```
+### Adicional
+- Si se desea obtener los datos del usuario al momento de registrarse se debe descomentar las líneas 13-14 y comentar la línea 16 del controller `users_controller.rb`
+- Si se desea obtener los datos del usuario al momento de logearse se debe descomentar el metodo create del contoller `user_token_controller.rb`
+- Más info en :
+- https://github.com/nsarno/knock/issues/101
+- https://github.com/nsarno/knock/issues/117
