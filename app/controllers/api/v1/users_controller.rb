@@ -42,7 +42,11 @@ class Api::V1::UsersController < ApplicationController
   private 
 
   def user_params
-    params.require(:user).permit(:email, :username, :password, :password_confirmation, :avatar, :current_password)
+    if current_user.admin?
+      params.require(:user).permit(:role, :email, :username, :password, :password_confirmation, :avatar, :current_password)
+    else
+      params.require(:user).permit(:email, :username, :password, :password_confirmation, :avatar, :current_password)
+    end
   end
   
   def set_user
