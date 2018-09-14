@@ -16,6 +16,8 @@ bundle install
 rails db:create
 rails db:migrate
 rails db:seed
+rake assets:precompile
+rake assets:clean
 rails server
 ```
 
