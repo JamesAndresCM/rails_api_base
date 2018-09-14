@@ -18,7 +18,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   # For Rails 3.1+ asset pipeline compatibility:
   #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   #
-      "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+      "#{asset_host}#{ActionController::Base.helpers.asset_path("fallback/default.jpg")}"
+  end
+
+  def asset_host
+    return "http://localhost:3000"
   end
 
   # Process files as they are uploaded:
