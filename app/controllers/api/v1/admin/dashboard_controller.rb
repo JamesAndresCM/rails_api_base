@@ -3,7 +3,7 @@ class Api::V1::Admin::DashboardController < ApplicationController
   authorize_resource class: false
 
   def index
-    users = User.where.not(role: "admin")
+    users = User.all
     render json: users
   end
 end
