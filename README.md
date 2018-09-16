@@ -44,16 +44,16 @@ api/v1/admin/users
 ```
 - Eliminar/Editar/Ver Usuario (Requiere token)
 ```bash
-v1/users/USERNAME
+v1/users/USERNAME o ID
 ```
 ### Ejemplos
 
-- Registro de usuario (devuelve token asi evitar enviar 2 request para obtener token al registrarse)
+- Registro de usuario (devuelve token + id para evitar enviar 2 request para obtener token al registrarse)
 ```bash
 curl -H 'Content-Type: application/json' -d '{"user": {"email": "emaildomain.com","password": "password","password_confirmation":"password", "username":"user_example"}}' localhost:3000/api/v1/sign_up
 ```
 
-- Autenticación de usuario (devuelve token)
+- Autenticación de usuario (devuelve token + id)
 ```bash
 curl -H 'Content-Type: application/json' -d '{"auth": {"email": "email@domain.com","password": "password"}}' localhost:3000/api/v1/sign_in
 ```
@@ -65,7 +65,7 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
 
 - Subir/Editar avatar usuario
 ```bash
-curl -X PATCH -v -H 'Content-Type: multipart/form-data' -H 'Accept: application/json' -H 'Authorization: JWT' -F "user[avatar]=@/PATH_FILE" localhost:3000/api/v1/users/USERNAME
+curl -X PATCH -v -H 'Content-Type: multipart/form-data' -H 'Accept: application/json' -H 'Authorization: JWT' -F "user[avatar]=@/PATH_FILE" localhost:3000/api/v1/users/USERNAME o ID
 ```
 
 - Editar usuario
@@ -73,18 +73,18 @@ curl -X PATCH -v -H 'Content-Type: multipart/form-data' -H 'Accept: application/
 - Para actualizar la contraseña se requiere de los campos:
 - current_password, password, password_confirmation
 ```bash
-curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: JWT' -d '{"user": {"email":"email@domain.com"}}' localhost:3000/api/v1/users/USERNAME
+curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: JWT' -d '{"user": {"email":"email@domain.com"}}' localhost:3000/api/v1/users/USERNAME o ID
 ```
 
 - Eliminar usuario
 * Posibilidad de dar cuenta de baja (Administrador puede eliminar cualquier usuario)
 ```bash
-curl -X DELETE -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/users/USERNAME
+curl -X DELETE -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/users/USERNAME o ID
 ```
 
 - Ver usuario en particular
 ```bash
-curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/users/USERNAME
+curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/users/USERNAME o ID
 ```
 
  - Listar usuarios
@@ -93,8 +93,8 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
  curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/admin/users
  ```
 ### Adicional
-- Si se desea obtener los datos del usuario al momento de registrarse se debe descomentar las líneas 13-14 y comentar la línea 16 del controller `users_controller.rb`
-- Si se desea obtener los datos del usuario al momento de logearse se debe descomentar el metodo create del contoller `user_token_controller.rb`
+- Si se desea obtener los datos del usuario al momento de registrarse se debe descomentar las líneas 13-14 y comentar la línea 15 del controller `users_controller.rb`
+- Si se desea obtener los datos del usuario al momento de logearse se debe descomentar la línea 9 del contoller `user_token_controller.rb` y pasar data como referencia dentro del render.
 - Más info en :
 - https://github.com/nsarno/knock/issues/101
 - https://github.com/nsarno/knock/issues/117
