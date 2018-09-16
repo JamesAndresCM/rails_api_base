@@ -10,10 +10,9 @@ class Api::V1::UsersController < ApplicationController
       auth_token = Knock::AuthToken.new payload: { sub: user.id }
 
       #devuelve JWT mas propiedades de usuario al momento de registrarse
-      #user_data = {email: user.email, username: user.username, role: user.role}
-      #render json: {token: auth_token.token, user: user_data}, status: :created
+      #user_data = {id: user.id, email: user.email, username: user.username, role: user.role, slug: user.slug}
+      render json: {jwt: auth_token.token, user_id: user.id}, status: :created
       
-      render json: auth_token, status: :created
     else
       render json: {status: 422, msg: user.errors}
     end
