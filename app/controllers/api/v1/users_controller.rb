@@ -11,6 +11,7 @@ class Api::V1::UsersController < ApplicationController
 
       #devuelve JWT mas propiedades de usuario al momento de registrarse
       #user_data = {id: user.id, email: user.email, username: user.username, role: user.role, slug: user.slug}
+      #render json: {jwt: auth_token.token, user: user_data}, status: :created
       render json: {jwt: auth_token.token, user_id: user.id}, status: :created
       
     else
