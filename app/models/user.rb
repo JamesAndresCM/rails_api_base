@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_secure_password
   before_create :set_default_role
   before_validation :downcase_user
-  mount_uploader :avatar, AvatarUploader
+  mount_base64_uploader :avatar, AvatarUploader, file_name: -> (u) { u.username }
   attr_accessor :current_password
 
   validates :username, presence: true, uniqueness: true, length:  {in: 3..12}, format: { with: /\A[a-zA-Z0-9_ ]+\z/, message: 'letters and numbers with space' }
