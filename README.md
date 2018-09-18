@@ -65,7 +65,12 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
 
 - Subir/Editar avatar usuario
 ```bash
-curl -X PATCH -v -H 'Content-Type: multipart/form-data' -H 'Accept: application/json' -H 'Authorization: JWT' -F "user[avatar]=@/PATH_FILE" localhost:3000/api/v1/users/USERNAME o ID
+curl -X PATCH \
+  http://localhost:3000/api/v1/users/USERNAME o ID \
+  -H 'Authorization: JWT' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{"user": {"avatar":"data:image/png;base64,FWRK6p8ypyfMo8nzGvJKvXzMDc\n72QHZD0mWbJTsnufMM...}}'
 ```
 
 - Editar usuario
