@@ -7,6 +7,7 @@ class Api::V1::UserTokenController < Knock::AuthTokenController
   def create
     @user = User.find_by(email: params[:auth][:email])
     #data = {user_id: @user.id,username: @user.username, email: @user.email, role: @user.role, slug: @user.slug}
+    @user.update!(last_login: Time.now)
     render json: {
         jwt: auth_token.token,
         user_id: @user.id,
