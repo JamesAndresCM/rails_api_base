@@ -9,6 +9,7 @@
 - Avatar de usuario mediante la gema Carrierwave (Imagen por defecto para cada usuario)
 - Versionamiento mediante Concerns en routing
 - Prevención de requests masivas mediante la gema rack-attack
+- Recuperación de contraseña
 
 ### Instalación
 ```bash
