@@ -100,7 +100,7 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
 
 - Recuperar contraseña
 - Para configurar el email(gmail) se debe establecer este más su password en el archivo ```config/application.yml```
-- Establecer default email ```app/mailers/user_mailer``` segunda linea.
+- Establecer default email ```app/mailers/user_mailer.rb``` segunda linea.
 
 - Se reenviará un email con las instrucciones 
 - Configurar host (frontend (?) ) archivo ```app/views/user_mailer/password_reset.html.erb```
@@ -110,8 +110,7 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
 
 - Resetear contraseña
 ```bash
-curl -H 'Content-Type: application/json' -d '{"user": {"token": "16753...","password":"new_password", "password_confirmation": "new_password"}
-}' http://localhost:3000/api/v1/password_reset
+curl -H 'Content-Type: application/json' -d '{"user": {"token": "token","password":"new_password", "password_confirmation": "new_password"}}' http://localhost:3000/api/v1/password_reset
 ```
 
 ### Adicional
