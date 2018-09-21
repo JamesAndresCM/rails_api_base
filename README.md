@@ -73,12 +73,12 @@ curl -X PATCH \
   -d '{"user": {"avatar":"data:image/png;base64,FWRK6p8ypyfMo8nzGvJKvXzMDc\n72QHZD0mWbJTsnufMM...}}'
 ```
 
-- Editar usuario
+- Editar usuario (requiere current_password , excepto para administrador sobre otros usuarios)
 - Campos : email, username, etc..
 - Para actualizar la contraseña se requiere de los campos:
 - current_password, password, password_confirmation
 ```bash
-curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: JWT' -d '{"user": {"email":"email@domain.com"}}' localhost:3000/api/v1/users/USERNAME o ID
+curl -X PATCH -H 'Content-Type: application/json' -H 'Authorization: JWT' -d '{"user": {"email":"email@domain.com", "current_password":"password"}}' localhost:3000/api/v1/users/USERNAME o ID
 ```
 
 - Eliminar usuario
@@ -97,6 +97,23 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
  ```bash
  curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/admin/users
  ```
+
+- Recuperar contraseña
+- Para configurar el email(gmail) se debe establecer este más su password en el archivo ```config/application.yml```
+- Establecer default email ```app/mailers/user_mailer``` segunda linea.
+
+- Se reenviará un email con las instrucciones 
+- Configurar host (frontend (?) ) archivo ```app/views/user_mailer/password_reset.html.erb```
+ ```bash
+ curl -H 'Content-Type: application/json' -d '{"email": "email@domain.com"}' localhost:3000/api/v1/forgot_password
+ ```
+
+- Resetear contraseña
+```bash
+curl -H 'Content-Type: application/json' -d '{"user": {"token": "16753...","password":"new_password", "password_confirmation": "new_password"}
+}' http://localhost:3000/api/v1/password_reset
+```
+
 ### Adicional
 - Si se desea obtener los datos del usuario al momento de registrarse se debe descomentar las líneas 13-14 y comentar la línea 15 del controller `users_controller.rb`
 - Si se desea obtener los datos del usuario al momento de logearse se debe descomentar la línea 9 del contoller `user_token_controller.rb` y pasar data como referencia dentro del render.
