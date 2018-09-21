@@ -10,6 +10,10 @@ Rails.application.routes.draw do
             patch '/users/:id' => :update
             delete '/users/:id' => :destroy
           end
+          scope controller: :passwords do
+              post '/forgot_password' => :forgot
+              post '/password_reset' => :reset
+          end
           namespace :admin do
             get '/users' => 'dashboard#index'
           end
