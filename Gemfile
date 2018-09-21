@@ -25,6 +25,7 @@ gem 'jwt'
 gem 'knock'
 gem 'rack-cors'
 gem 'rack-attack'
+gem 'figaro'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

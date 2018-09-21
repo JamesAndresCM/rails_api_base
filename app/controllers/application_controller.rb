@@ -8,4 +8,9 @@ class ApplicationController < ActionController::API
   def not_found(exception)
       render json: { status: "404", "#{exception.message}": "page not found"}
   end
+
+  # excepcion de parametro requerido
+  rescue_from ActionController::ParameterMissing do |exception|
+    render json: { status: 422, "#{exception.param}":"is required"}
+  end
 end

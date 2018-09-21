@@ -24,11 +24,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-  if @user.update(user_params)
-    render json: { status: 200, msg: 'User has been updated.' }
-  else
-    render json: {status: 422, msg: @user.errors}
-  end
+    if current_user.admin? and @user.user?
+      @user.skip_current_password_validation = true
+    else
+      @user.skip_current_password_validation = false
+    end 
+      if @user.update(user_params)
+        render json: { status: 200, msg: 'User has been updated.' }
+      else
+        render json: {status: 422, msg: @user.errors}
+      end
   end
 
   def destroy

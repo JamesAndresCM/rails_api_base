@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_183125) do
+ActiveRecord::Schema.define(version: 2018_09_20_040512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "complains", force: :cascade do |t|
+    t.string "text"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["text"], name: "index_complains_on_text"
+    t.index ["user_id"], name: "index_complains_on_user_id"
+  end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
@@ -37,7 +46,10 @@ ActiveRecord::Schema.define(version: 2018_08_23_183125) do
     t.integer "role", default: 1
     t.datetime "last_login"
     t.string "slug"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.index ["email"], name: "index_users_on_email"
   end
 
+  add_foreign_key "complains", "users"
 end
