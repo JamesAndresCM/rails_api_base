@@ -26,6 +26,7 @@ gem 'knock'
 gem 'rack-cors'
 gem 'rack-attack'
 gem 'figaro'
+gem 'rswag'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -41,6 +42,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec-rails', '~> 3.5'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
