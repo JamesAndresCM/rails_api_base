@@ -39,7 +39,7 @@ class Api::V1::PasswordsController < ApplicationController
         render json: {status: 400, msg: user.errors.full_messages[0]}
       end
     else
-      render json: {status: 200, msg: 'Link not valid or expired. Try generating a new link.'}
+      render json: {status: 400, msg: 'Link not valid or expired. Try generating a new link.'}
     end
 
   end
