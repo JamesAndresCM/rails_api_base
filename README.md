@@ -10,6 +10,7 @@
 - Versionamiento mediante Concerns en routing
 - Prevención de requests masivas mediante la gema rack-attack
 - Recuperación de contraseña
+- Documentación generada con Swagger http://localhost:3000/api-docs/index.html
 
 ### Instalación
 ```bash
