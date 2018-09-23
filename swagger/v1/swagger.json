@@ -49,9 +49,6 @@
         ],
         "responses": {
           "200": {
-            "description": "user created"
-          },
-          "422": {
             "description": "invalid request"
           }
         }
@@ -93,9 +90,6 @@
         ],
         "responses": {
           "200": {
-            "description": "auth success"
-          },
-          "401": {
             "description": "Invalid email address or password"
           }
         }
@@ -323,9 +317,6 @@
         ],
         "responses": {
           "200": {
-            "description": "An email has been sent to you with further instructions for reset your password"
-          },
-          "404": {
             "description": "Email address not found. Please check and try again."
           }
         }
@@ -371,9 +362,6 @@
         ],
         "responses": {
           "200": {
-            "description": "Password has been changed"
-          },
-          "400": {
             "description": "Link not valid or expired. Try generating a new link."
           }
         }
