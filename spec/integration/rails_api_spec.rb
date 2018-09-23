@@ -86,7 +86,7 @@ describe 'Rails Api Base' do
         end
       end
 
-      response '401', 'Error: Unauthorized' do
+      response '401', 'Unauthorized Token required' do
         context 'with an authenticated user' do
             let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
             it 'unauthorized' do
@@ -118,7 +118,7 @@ describe 'Rails Api Base' do
           end
       end
 
-      response '401', 'Error: Unauthorized' do
+      response '403', 'You are not authorized to access this page.' do
         context 'with an authenticated user' do
             let(:user) { User.create(username: "te", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
             it 'render unauthorized' do
