@@ -27,11 +27,12 @@ Rails.application.routes.draw do
   end
 #  versionamiento posible version 2 (crear namespace vN..) 
 #  https://chriskottom.com/blog/2017/04/versioning-a-rails-api/
-#  namespace :api do
-#    namespace :v2 do
-#      concerns :api_base
-#    end
-#  end
+  namespace :api do
+    namespace :v2 do
+      concerns :api_base
+      get '/test' => 'home#test'
+    end
+  end
     
   #posible "/"
   #root to: 'api/v1/home#index'
