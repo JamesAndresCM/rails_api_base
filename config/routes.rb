@@ -19,6 +19,7 @@ Rails.application.routes.draw do
           namespace :admin do
             get '/users' => 'dashboard#index'
           end
+          match '*unmatched_route', :to => 'errors#routing', via: [:all]
   end
   namespace :api do
     namespace :v1 do
