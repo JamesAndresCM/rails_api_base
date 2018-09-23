@@ -118,7 +118,7 @@
             "description": "You are currently Logged-in username"
           },
           "401": {
-            "description": "Error: Unauthorized"
+            "description": "Unauthorized Token required"
           }
         }
       }
@@ -145,8 +145,8 @@
           "200": {
             "description": "return all users"
           },
-          "401": {
-            "description": "Error: Unauthorized"
+          "403": {
+            "description": "You are not authorized to access this page."
           }
         }
       }
