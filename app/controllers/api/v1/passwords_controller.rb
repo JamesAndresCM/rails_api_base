@@ -34,12 +34,12 @@ class Api::V1::PasswordsController < ApplicationController
     if user.present? && user.password_token_valid?
       user.skip_current_password_validation = true
       if user.reset_password!(params[:user][:password], params[:user][:password_confirmation])
-        render json: {status: 200, msg: 'Password has been changed'}
+        render json: {status: 201, msg: 'Password has been changed'}
       else
         render json: {status: 400, msg: user.errors.full_messages[0]}
       end
     else
-      render json: {status: 400, msg: 'Link not valid or expired. Try generating a new link.'}
+      render json: {status: 200, msg: 'Link not valid or expired. Try generating a new link.'}
     end
 
   end
