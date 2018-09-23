@@ -1,0 +1,15 @@
+<mat-card style="width: 25%; margin: 0 auto;">
+    <mat-card-header>
+      <mat-card-title style="text-transform: capitalize">{{user?.username}}</mat-card-title>
+    </mat-card-header>
+    <img style="height: 250px; width: 100%; border-radius: 5px;" src="{{user?.avatar.url}}" />
+    <mat-card-content style="text-align: center">
+      <p>Email : {{user?.email}}</p>
+      <br>
+      <button (click)="editUser(user?.id)" mat-raised-button style="background-color: dodgerblue; color: white">Edit Profile</button>
+      <br><br>
+      Cancel my account
+      <br>
+      <button (click)="delUser(user?.id)" mat-raised-button style="background-color: red; color: white">Cancel Account</button>
+    </mat-card-content>
+</mat-card>

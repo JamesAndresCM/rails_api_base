@@ -1,0 +1,29 @@
+<div class="container-register" style="border-radius: 8px">
+<h3 style="text-align: center">Sign In</h3>
+ <form [formGroup]="loginForm" style="margin: 0 auto" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <input matInput formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" name="email"  placeholder="Email">
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Email is required</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" name="password" type="password" placeholder="password">
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Password is required</div>
+    </div>
+  </mat-form-field>
+
+  <div style="text-align: center">
+    <button [disabled]="loading" style="border-radius: 20px; background-color: #007bff; color: white"  mat-raised-button>Login</button>
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <br><br>   
+    <div style="text-align: left">
+    <a style="color: #007bff" [routerLink]="['/register']">Sign up</a>
+    <br>
+    <a style="color: #007bff" [routerLink]="['/forgot-password']">Forgot your password?</a>
+    </div>
+  </div>
+</form>
+</div>
