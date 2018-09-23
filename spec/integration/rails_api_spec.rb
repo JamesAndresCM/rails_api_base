@@ -1,4 +1,10 @@
 require 'swagger_helper' 
+
+def authenticated_header(request, user)
+  token = Knock::AuthToken.new(payload: { sub: user.id }).token
+  request = "Authorization: "#{token}"
+end
+
 describe 'Rails Api Base' do
   path '/api/v1/sign_up' do
     post 'Register' do
@@ -19,11 +25,11 @@ describe 'Rails Api Base' do
     }
 
       response '200', 'user created' do
-        let(:user) { { email: 'example_user@domain.com', password: '12345678', password_confirmation: '12345678', username: 'example_user' } }
+        let(:user) { 'valid' }
         run_test!
       end
 
-      response '422', 'invalid request' do
+      response '200', 'invalid request' do
         let(:user) { { username: 'fo' } }
         run_test!
       end
@@ -47,12 +53,12 @@ describe 'Rails Api Base' do
     }
 
       response '200', 'auth success' do
-        let(:user) { { email: 'example_user@domain.com', password: '12345678' } }
+        let(:user) { { auth: { email: 'example_user@domain.com', password: '12345678' } } }
         run_test!
       end
 
-      response '401', 'Invalid email address or password' do
-        let(:user) { { email: 'fo' } }
+      response '200', 'Invalid email address or password' do
+        let(:user) { { auth: { email: 'fo' } } }
         run_test!
       end
     end
@@ -72,11 +78,21 @@ describe 'Rails Api Base' do
     })
 
       response '200', 'You are currently Logged-in username' do
-        run_test!
+        context 'with an authenticated user' do
+            let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'renders json listing resource with id' do
+              authenticated_header(request, user)
+            end
+        end
       end
 
       response '401', 'Error: Unauthorized' do
-        run_test!
+        context 'with an authenticated user' do
+            let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'unauthorized' do
+              authenticated_header(request, user)
+          end
+        end
       end
     end
   end
@@ -94,11 +110,21 @@ describe 'Rails Api Base' do
     })
 
       response '200', 'return all users' do
-        run_test!
+        context 'with an authenticated user' do
+            let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'renders json listing resource with id' do
+              authenticated_header(request, user)
+            end
+          end
       end
 
       response '401', 'Error: Unauthorized' do
-        run_test!
+        context 'with an authenticated user' do
+            let(:user) { User.create(username: "te", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'render unauthorized' do
+              authenticated_header(request, user)
+            end
+          end
       end
     end
   end
@@ -118,13 +144,21 @@ describe 'Rails Api Base' do
       parameter name: :id, :in => :path, :type => :integer, :required => true
 
       response '200', 'User has been deleted' do
-          let(:id) { User.delete(id: 2)}
-          run_test!
+          context 'with an authenticated user' do
+            let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'renders json listing resource with id' do
+              authenticated_header(request, user)
+            end
+          end
         end
 
         response '422', "Couldn't find User with id" do
-          let(:id) { 'invalid' }
-          run_test!
+          context 'with an authenticated user' do
+            let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'unauthorized' do
+              authenticated_header(request, user)
+            end
+          end
         end
       end
     end
@@ -162,17 +196,24 @@ describe 'Rails Api Base' do
 
 
       response '200', 'User has been updated' do
-          let(:id) { User.update(id: 2)}
-          run_test!
+          context 'with an authenticated user' do
+            let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'renders json listing resource with id' do
+              authenticated_header(request, user)
+            end
+          end
         end
 
         response '404', "Couldn't find User with id" do
-          let(:id) { 'invalid' }
-          run_test!
+          context 'with an authenticated user' do
+            let(:user) { User.create(username: "te", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+            it 'unauthorized' do
+              authenticated_header(request, user)
+            end
+          end
         end
       end
     end
-
 
     path '/api/v1/users/{id}' do
     get 'Show user' do
@@ -188,15 +229,23 @@ describe 'Rails Api Base' do
       parameter name: :id, :in => :path, :type => :integer, :required => true
 
       response '200', 'ok' do
-          let(:id) { User.find(id: 2)}
-          run_test!
-        end
-
-        response '404', "Couldn't find User with id" do
-          let(:id) { 'invalid' }
-          run_test!
+        context 'with an authenticated user' do
+          let(:user) { User.create(username: "test", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+          it 'renders json listing resource with id' do
+            authenticated_header(request, user)
+          end
         end
       end
+
+        response '404', "Couldn't find User with id" do
+          context 'with an authenticated user' do
+              let(:user) { User.create(username: "te", email: "domain@domain.com", password: "12345678", password_confirmation: "12345678") }
+                it 'unauthorized' do
+                authenticated_header(request, user)
+              end
+            end
+          end
+        end
     end
 
 
@@ -216,7 +265,7 @@ describe 'Rails Api Base' do
         run_test!
       end
 
-      response '404', 'Email address not found. Please check and try again.' do
+      response '200', 'Email address not found. Please check and try again.' do
         let(:user) { { email: 'foo' } }
         run_test!
       end
@@ -246,7 +295,7 @@ describe 'Rails Api Base' do
         run_test!
       end
 
-      response '400', 'Link not valid or expired. Try generating a new link.' do
+      response '200', 'Link not valid or expired. Try generating a new link.' do
         let(:user) { { token: '' } }
         run_test!
       end
