@@ -1,0 +1,51 @@
+<div *ngIf="!dataSource" style="width: 400px; margin:0 auto;">
+	<mat-card-header>
+    	<mat-toolbar class="toolbar">
+      		<mat-card-title>No hay datos para mostrar &nbsp;</mat-card-title>
+      		<span class="toolbar-spacer"></span>
+    	</mat-toolbar>
+	</mat-card-header>
+</div>
+<br>
+<div *ngIf="dataSource" class="responsive_table example-container mat-elevation-z8" style="width: 1000px; margin:0 auto;">
+  <div class="example-header" style="margin: 10px">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search User">
+    </mat-form-field>
+  </div>
+<div>
+	<mat-table style="margin: 20px" [dataSource]="dataSource" matSort>
+		<ng-container matColumnDef="role">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+			<mat-cell *matCellDef="let user">{{user.role}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="username">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+			<mat-cell *matCellDef="let user">{{user.username}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="email">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+			<mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="avatar">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Avatar</mat-header-cell>
+			<mat-cell *matCellDef="let user">
+      <img class="img-avatar" [src]="user.avatar.url" />
+        </mat-cell>
+		</ng-container>
+		<ng-container  matColumnDef="actions">
+    		<mat-header-cell style="justify-content: center" *matHeaderCellDef>Actions</mat-header-cell>
+    		<mat-cell *matCellDef="let user">
+         	<button (click)="delUser(user.id, user.username)" mat-raised-button color="warn">Delete</button>
+         	&nbsp;
+         	<button (click)="editUser(user.id)" mat-raised-button color="primary">Edit</button> 
+    		</mat-cell>
+		</ng-container> 
+		<mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+	</mat-table>
+	<mat-paginator #paginator
+                 [pageSize]="3"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>

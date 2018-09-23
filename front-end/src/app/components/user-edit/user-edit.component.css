@@ -1,0 +1,14 @@
+.example-container {
+  flex-direction: column;
+}
+.example-container > * {
+  width: 100%;
+}
+.mat-form-field{
+  width:400px !important;
+}
+.row-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
