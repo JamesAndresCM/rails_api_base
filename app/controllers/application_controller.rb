@@ -20,4 +20,8 @@ class ApplicationController < ActionController::API
   def set_namespace
     self.namespace_for_serializer = ::V1
   end
+
+  def unauthorized_entity(_)
+      render json: { status: 200, msg: "Unauthorized Token required" }
+  end
 end
