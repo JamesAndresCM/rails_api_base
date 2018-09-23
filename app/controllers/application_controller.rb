@@ -22,6 +22,6 @@ class ApplicationController < ActionController::API
   end
 
   def unauthorized_entity(_)
-      render json: { status: 200, msg: "Unauthorized Token required" }
+      render json: { status: 401, msg: "Unauthorized Token required" }
   end
 end
