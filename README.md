@@ -10,7 +10,8 @@
 - Versionamiento mediante Concerns en routing
 - Prevención de requests masivas mediante la gema rack-attack
 - Recuperación de contraseña
-- Documentación generada con Swagger http://localhost:3000/api-docs/index.html
+- Documentación generada con Swagger
+<img src="https://i.imgur.com/9etl7sr.png" />
 
 ### Instalación
 ```bash
@@ -46,8 +47,17 @@ api/v1/admin/users
 ```
 - Eliminar/Editar/Ver Usuario (Requiere token)
 ```bash
-v1/users/USERNAME o ID
+api/v1/users/USERNAME o ID
 ```
+- Recuperación de contraseña (requiere email)
+```bash
+api/v1/forgot_password
+```
+- Reset de contraseña (requiere token)
+```bash
+api/v1/password_reset
+```
+
 ### Ejemplos
 
 - Registro de usuario (devuelve token + id para evitar enviar 2 request para obtener token al registrarse)
@@ -99,9 +109,13 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
  ```bash
  curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/admin/users
  ```
+ - Paginación 
+  ```bash
+ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/admin/users?page=2
+ ```
 
-- Recuperar contraseña
-- Para configurar el email(gmail) se debe establecer este más su password en el archivo ```config/application.yml```
+### Recuperación de contraseña
+- Configurar el email(gmail) ,se debe establecer este más su password en el archivo ```config/application.yml```
 - Establecer default email ```app/mailers/user_mailer.rb``` segunda linea.
 
 - Se reenviará un email con las instrucciones 
@@ -110,10 +124,20 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
  curl -H 'Content-Type: application/json' -d '{"email": "email@domain.com"}' localhost:3000/api/v1/forgot_password
  ```
 
-- Resetear contraseña
+### Resetear contraseña
+- Utilizar el token que genera el email de recuperación
 ```bash
 curl -H 'Content-Type: application/json' -d '{"user": {"token": "token","password":"new_password", "password_confirmation": "new_password"}}' http://localhost:3000/api/v1/password_reset
 ```
+
+### Versionamiento
+- Descomentar apiv2 en el archivo `config/routes.rb`
+- Ejemplo de endpoint `/api/v2/test`
+- Ejemplo de serialización para endpoint `/api/v[1,2]/users/`
+- V1, V2
+<img src="https://i.imgur.com/74EqAqd.png" />
+<img src="https://i.imgur.com/FTDVAaA.png" />
+
 
 ### Adicional
 - Si se desea obtener los datos del usuario al momento de registrarse se debe descomentar las líneas 13-14 y comentar la línea 15 del controller `users_controller.rb`
