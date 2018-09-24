@@ -207,11 +207,6 @@
             "required": true
           },
           {
-            "name": "current_password",
-            "type": "string",
-            "required": true
-          },
-          {
             "name": "user",
             "in": "body",
             "schema": {

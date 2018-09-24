@@ -176,8 +176,6 @@ describe 'Rails Api Base' do
       :description => 'JWT token'
       })
       parameter name: :id, :in => :path, :type => :integer, :required => true
-      parameter name: :current_password, :type => :string, :required => true
-
       parameter name: :user, in: :body, schema: {
         properties: {
         user: {
