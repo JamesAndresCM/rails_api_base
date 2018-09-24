@@ -37,6 +37,5 @@ Rails.application.routes.draw do
     
   root :to => redirect('/api/v1/docs')
 
-  #rutas no encontradas
   match '*unmatched_route', :to => 'api/v1/errors#routing', via: [:all]
 end
