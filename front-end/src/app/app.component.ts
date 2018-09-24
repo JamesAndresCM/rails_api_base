@@ -12,7 +12,7 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   title = 'app';
 
-  _currentUser: string;
+  _currentUser: any;
   role: string;
   constructor(private router: Router, private userService: UserService) {
   }

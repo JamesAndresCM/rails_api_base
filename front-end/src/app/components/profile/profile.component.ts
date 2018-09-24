@@ -15,7 +15,7 @@ import { UserEditComponent } from '../user-edit/user-edit.component';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public user: User;
+  public user: any;
   isPopupOpened = true;
 
   constructor(
