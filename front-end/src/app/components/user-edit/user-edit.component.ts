@@ -29,6 +29,8 @@ export class UserEditComponent implements OnInit {
   public _user_id: number;
   public userForm: FormGroup;
   public user: any;
+  public check = false;
+
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(
@@ -53,13 +55,14 @@ export class UserEditComponent implements OnInit {
             avatar: null,
             role: [this.data.role],
             current_password: [this.data.current_password],
-            password: [ this.data.password],
+            password: [this.data.password],
             password_confirmation: [ this.data.password_confirmation]
             });
       this.getRole();
       this.getUserId();
       this.data.id;
       this.data.avatar;
+      this.checkCPass();
     }
 
     getRole(){
@@ -76,7 +79,7 @@ export class UserEditComponent implements OnInit {
 
         let u_role = this.getRole();
         var avatar = (this.f.avatar.value == null) ? this.data.avatar : "data:image/png;base64,"+ this.f.avatar.value.value;
-
+        
         if(this.f.password.value == null && this.f.password_confirmation.value == null){
           this.user = {user: {username: this.f.username.value, email: this.f.email.value, avatar: avatar, current_password: this.f.current_password.value}}   
         }else{
@@ -91,6 +94,12 @@ export class UserEditComponent implements OnInit {
         this.user = JSON.stringify(this.user);
         //console.log(this.user);
               
+        if (this.f.avatar.value && this.f.avatar.value.filetype != "image/jpeg" ){
+            this.dialogRef.close();
+            this.alertService.error("Error Content type image is not valid...");
+            this.submitted = false;
+        }else{
+
         this.userService.editUser(this.data.id,this.user).subscribe(
           response => {
             if(response.status == 422){
@@ -119,7 +128,7 @@ export class UserEditComponent implements OnInit {
             error => {
               console.log(<any>error);
         });
-        
+      }
     }
 
      getUserId(){
@@ -143,19 +152,12 @@ export class UserEditComponent implements OnInit {
     }
   }
 
-  /*
-  getUser(id: number){
-
-    this.userService.getById(id).subscribe(
-      result => {
-            console.log(result);
-            //this.user = result;
-      },
-      error => {
-            //this.router.navigate(['/profile',c_user.user_id ]);
-            console.log(error);
-        });
-  }*/
-
+  checkCPass(){
+    let c_role = this.getRole();
+    if(c_role != "admin" || this.router.url != "/admin/dashboard"){
+      this.check = true;
+      return this.check;
+    }
+  }
 
 }
