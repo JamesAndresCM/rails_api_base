@@ -33,7 +33,10 @@
           <hr>
           <div *ngIf="_user_id == data.id">
           <mat-form-field>
-            <input matInput type="password" formControlName="current_password"  placeholder="current_password">
+            <input matInput [required]="check == true" type="password" formControlName="current_password"  placeholder="current_password">
+            <div *ngIf="submitted && check == true" class="invalid-feedback">
+              <div *ngIf="this.f.current_password.value  == null">Password is required</div>
+            </div>
           </mat-form-field>
           <br>
           <mat-form-field>
