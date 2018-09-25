@@ -17,3 +17,9 @@
     background-color: #d4edda;
     border-color: #c3e6cb;
 }
+
+@media (min-width: 500px) {
+    .c_alert {
+        width: 400px;
+     }
+}
