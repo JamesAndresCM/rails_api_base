@@ -23,6 +23,8 @@ rake assets:precompile
 rake assets:clean
 rails server
 ```
+### Front-end 
+- [Instalación](https://github.com/JamesAndresCM/rails_api_base/tree/master/front-end)
 
 ### Usuario Admin por defecto
 - email: admin@domain.com
@@ -138,6 +140,23 @@ curl -H 'Content-Type: application/json' -d '{"user": {"token": "token","passwor
 <img src="https://i.imgur.com/74EqAqd.png" />
 <img src="https://i.imgur.com/FTDVAaA.png" />
 
+
+### Instalación mediante docker
+- Si se desea utilizar docker en vez del método tradicional de instalación se deben realizar lo siguiente:
+- 1- Utilizar las variables de entorno para email (descomentar ENV) en archivo `config/application.yml`.
+- 2- Mover el directorio `front-end` hacia otro lugar y utilizar su instalación normal o utilizar docker tambien para su uso.
+
+#### Crear imágenes y contenedores
+- Ejemplos :
+- Container Postgresql : ```docker run --name=postgres_rails_api -e POSTGRES_USER=api_base_development -e POSTGRES_PASSWORD=api123 -e POSTGRES_DB=api_base_development -p 5432:5432 -d postgres```
+
+- Imagen docker rails : ```docker build -t api_base_rails .```
+
+- Migración Rails : ```docker run --rm --link=postgres_rails_api:db_rails_api -e DB_HOST=postgres_rails_api -e DB_USER=api_base_development -e DB_NAME=api_base_development -e DB_POSTGRES_PASSWORD=api123 api_base_rails rake db:migrate```
+
+- Seed Rails : ```docker run --rm --link=postgres_rails_api:db_rails_api -e DB_HOST=postgres_rails_api -e DB_USER=api_base_development -e DB_NAME=api_base_development -e DB_POSTGRES_PASSWORD=api123 api_base_rails rake db:seed```
+
+- Container Rails : ```docker run --name=rails_api_base --link=postgres_rails_api:db_rails_api -p 3000:3000 -e DB_HOST=postgres_rails_api -e DB_USER=api_base_development -e DB_NAME=api_base_development -e DB_POSTGRES_PASSWORD=api123 -e EMAIL=EMAIL -e EMAIL_PASSWORD="EMAIL_PASSWORD" -d api_base_rails```
 
 ### Adicional
 - Si se desea obtener los datos del usuario al momento de registrarse se debe descomentar las líneas 13-14 y comentar la línea 15 del controller `users_controller.rb`
