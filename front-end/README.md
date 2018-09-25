@@ -9,7 +9,7 @@ Run `npm install`
 ## Install with docker
 
 - Image ```docker build -t rails_frontend_api .```
-- Container ```docker run -p 4200:4200 --name=api_front_end -d rails_frontend````
+- Container ```docker run -p 4200:4200 --name=api_front_end -d rails_frontend```
 
 ## Development server
 
