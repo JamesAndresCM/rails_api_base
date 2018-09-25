@@ -94,6 +94,7 @@ export class UserEditComponent implements OnInit {
         this.user = JSON.stringify(this.user);
         //console.log(this.user);
               
+        //valid content_type image
         let c_type = ["image/jpeg", "image/png", "image/jpg"];
         if (this.f.avatar.value && c_type.includes(this.f.avatar.value.filetype) == false ){
             this.dialogRef.close();
