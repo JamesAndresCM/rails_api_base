@@ -1,4 +1,5 @@
-<mat-card style="width: 25%; margin: 0 auto;">
+<div class="profile_container">
+<mat-card style="margin: 0 auto;">
     <mat-card-header>
       <mat-card-title style="text-transform: capitalize">{{user?.username}}</mat-card-title>
     </mat-card-header>
@@ -13,3 +14,4 @@
       <button (click)="delUser(user?.id)" mat-raised-button style="background-color: red; color: white">Cancel Account</button>
     </mat-card-content>
 </mat-card>
+</div>
