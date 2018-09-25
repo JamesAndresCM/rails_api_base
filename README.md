@@ -23,9 +23,12 @@ rake assets:precompile
 rake assets:clean
 rails server
 ```
+- [Instalación mediante Docker](https://github.com/JamesAndresCM/rails_api_base/blob/master/README.md#instalaci%C3%B3n-mediante-docker)
+
 ### Front-end 
 - [Instalación](https://github.com/JamesAndresCM/rails_api_base/tree/master/front-end)
-
+***
+## Setup inicial 
 ### Usuario Admin por defecto
 - email: admin@domain.com
 - password: admin123
