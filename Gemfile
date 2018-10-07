@@ -19,7 +19,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'cancancan', '~> 2.0'
 gem 'carrierwave'
 gem 'carrierwave-base64'
+gem 'cocaine', '~> 0.5.8'
 gem 'email_validator'
+gem 'file_validators'
 gem 'friendly_id', '~> 5.2.0'
 gem 'jwt'
 gem 'knock'
@@ -28,6 +30,8 @@ gem 'rack-attack'
 gem 'figaro'
 gem 'rswag'
 gem 'will_paginate', '~> 3.1.0'
+
+
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

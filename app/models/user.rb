@@ -7,6 +7,9 @@ class User < ApplicationRecord
   #carrierwave uploader  
   mount_base64_uploader :avatar, AvatarUploader, file_name: -> (u) { u.username }
 
+  #validate content_type avatar
+  validates :avatar, file_size: { in: 100.bytes..1.megabyte }, file_content_type: { allow: ['image/jpeg', 'image/png', 'image/jpg'], mode: :strict }
+
   #accessors 
   attr_accessor :current_password
   attr_accessor :skip_current_password_validation

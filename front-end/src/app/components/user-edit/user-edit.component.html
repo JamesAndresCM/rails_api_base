@@ -28,7 +28,11 @@
               <hr>
               <div style="justify-content: center">
               <img style="margin-left: 50px; width: 50px; height: 50px; border-radius: 30px" [src]="data.avatar.url" />
-              <input style="float: right; margin-top: 5px;" type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+              <input style="float: right; margin-top: 5px;" type="file" id="avatar" 
+              [ngClass]="{ 'is-invalid': submitted && f.avatar.errors }" (change)="onFileChange($event)" #fileInput>
+              <div *ngIf="submitted && f.avatar.errors" class="invalid-feedback">
+                <div style="color: red" *ngIf="f.avatar.errors.validSize">Avatar: file size must be between 100 Bytes and 1 MB</div>
+              </div>
               </div>
           <hr>
           <div *ngIf="_user_id == data.id">

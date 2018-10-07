@@ -7,6 +7,7 @@ import { AlertService } from '../../services/alert.service';
 import { Validators } from '@angular/forms';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
+import { ValidateSize } from '../../validators/size.validator';
 
 export interface Role {
   value: string;
@@ -52,7 +53,7 @@ export class UserEditComponent implements OnInit {
             id: [this.data.id],
             username: [this.data.username, [Validators.required]],
             email: [ this.data.email, [Validators.required]],
-            avatar: null,
+            avatar: ['', [ValidateSize]],
             role: [this.data.role],
             current_password: [this.data.current_password],
             password: [this.data.password],
@@ -78,7 +79,7 @@ export class UserEditComponent implements OnInit {
         if(this.userForm.invalid){ return; }
 
         let u_role = this.getRole();
-        var avatar = (this.f.avatar.value == null) ? this.data.avatar : "data:image/png;base64,"+ this.f.avatar.value.value;
+        var avatar = (this.f.avatar.value == '') ? this.data.avatar : "data:image/png;base64,"+ this.f.avatar.value.value;
         
         if(this.f.password.value == null && this.f.password_confirmation.value == null){
           this.user = {user: {username: this.f.username.value, email: this.f.email.value, avatar: avatar, current_password: this.f.current_password.value}}   
@@ -115,15 +116,15 @@ export class UserEditComponent implements OnInit {
               if(this.getRole() != "admin"){
                 this.dialogRef.close();
                 this.router.navigate(['/home']);
-                this.alertService.success("User has been updated", true);
+                this.alertService.success("User has been updated");
                 console.log(response);
               }else if (this.getRole() == "admin" && this.router.url.split("/")[1] == "profile"){
                   this.dialogRef.close();
                   this.router.navigate(['/home']);
-                  this.alertService.success("User has been updated", true);
+                  this.alertService.success("User has been updated");
               }else{
                   this.dialogRef.close();
-                  this.alertService.success("User has been updated", true);
+                  this.alertService.success("User has been updated");
               }
               }
             },
@@ -148,6 +149,7 @@ export class UserEditComponent implements OnInit {
         this.userForm.get('avatar').setValue({
           filename: file.name,
           filetype: file.type,
+          filesize: file.size,
           value: reader.result.split(',')[1]
         })
       };
