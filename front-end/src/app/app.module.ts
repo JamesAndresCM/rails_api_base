@@ -4,10 +4,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 //components
-import { AlertComponent } from './components/alert/alert.component';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
@@ -17,6 +16,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 
@@ -25,7 +26,6 @@ import { MaterialModule } from './material.module';
 
 //services
 import { AuthenticationService } from './services/authentication.service';
-import { AlertService } from './services/alert.service';
 import { RegisterService } from './services/register.service';
 import { UserService } from './services/user.service';
 import { PasswordService } from './services/password.service';
@@ -42,12 +42,10 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 //routing
 import { routing,appRoutingProviders } from './app.routing';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+
 
 @NgModule({
   declarations: [
-    AlertComponent,
     AppComponent,
     ErrorComponent,
     HomeComponent,
@@ -71,7 +69,6 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     ReactiveFormsModule
   ],
   providers: [
-    AlertService,
     AuthGuard, 
     AdminGuard,
     AuthenticationService, 
@@ -80,7 +77,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     PasswordService,
     UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000} }
     ],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserService } from '../../services/user.service';
-import { AlertService } from '../../services/alert.service';
+import { MatSnackBar } from '@angular/material';
 import { Validators } from '@angular/forms';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
@@ -39,7 +39,7 @@ export class UserEditComponent implements OnInit {
     private dialogRef: MatDialogRef<UserEditComponent>,
     private userService: UserService,
     private router: Router,
-    private alertService: AlertService,
+    private alertService: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
             this.user = new User(0,'','','','','','');
     }
@@ -99,7 +99,7 @@ export class UserEditComponent implements OnInit {
         let c_type = ["image/jpeg", "image/png", "image/jpg"];
         if (this.f.avatar.value && c_type.includes(this.f.avatar.value.filetype) == false ){
             this.dialogRef.close();
-            this.alertService.error("Error Content type image is not valid...");
+            this.alertService.open("Error Content type image is not valid...", "Error");
             this.submitted = false;
         }else{
 
@@ -108,7 +108,7 @@ export class UserEditComponent implements OnInit {
             if(response.status == 422){
                for (var key in response.msg){
                 let error_msg = key.charAt(0).toUpperCase() + key.slice(1)+": "+response.msg[key];
-                this.alertService.error(error_msg);
+                this.alertService.open(error_msg, "Error");
                 this.dialogRef.close();
             }
               //this.router.navigate(['/']);
@@ -116,15 +116,15 @@ export class UserEditComponent implements OnInit {
               if(this.getRole() != "admin"){
                 this.dialogRef.close();
                 this.router.navigate(['/home']);
-                this.alertService.success("User has been updated");
+                this.alertService.open("User has been updated", "Success");
                 console.log(response);
               }else if (this.getRole() == "admin" && this.router.url.split("/")[1] == "profile"){
                   this.dialogRef.close();
                   this.router.navigate(['/home']);
-                  this.alertService.success("User has been updated");
+                  this.alertService.open("User has been updated","Success");
               }else{
                   this.dialogRef.close();
-                  this.alertService.success("User has been updated");
+                  this.alertService.open("User has been updated","Success");
               }
               }
             },

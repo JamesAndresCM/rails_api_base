@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSortable, MatTableDataSource, MatSort , MatPaginator } from '@angular/material';
 import { UserService } from '../../services/user.service'
-import { AlertService } from '../../services/alert.service'
+import { MatSnackBar } from '@angular/material';
 import { first } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { UserEditComponent } from '../user-edit/user-edit.component';
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private userService: UserService,
-    private alertService: AlertService,
+    private alertService: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
 				result => {
 					if(result["status"] == 200){
 						this.getUsers();
-            this.alertService.error("User has been deleted");
+            this.alertService.open("User has been deleted", "Success");
 					}else{
 						console.log("error not del element...");
 					}

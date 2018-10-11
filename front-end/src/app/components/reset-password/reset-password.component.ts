@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from '../../services/alert.service'
+import { MatSnackBar } from '@angular/material';
 import { PasswordService } from '../../services/password.service'
 import { first } from 'rxjs/operators';
 
@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private alertService: AlertService,
+    private alertService: MatSnackBar,
     private passwordService: PasswordService
   ) { }
 
@@ -54,9 +54,9 @@ export class ResetPasswordComponent implements OnInit {
         data => {
             if(data.status == 201){
               this.router.navigate(['/login']);
-              this.alertService.success(data.msg);
+              this.alertService.open(data.msg, "Success");
             }else{
-              this.alertService.error(data.msg);
+              this.alertService.open(data.msg, "Error");
               this.submitted = false;
               this.loading = false;
             }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service'
-import { AlertService } from '../../services/alert.service'
+import { MatSnackBar } from '@angular/material';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: AlertService,
+    private alertService: MatSnackBar,
     private authenticationService: AuthenticationService
   ) { }
 
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
             if (data.status == 401){
-                this.alertService.error(data.msg);
+                this.alertService.open(data.msg, "Error");
                 this.loading = false;
             }else{
               this.router.navigate([this.returnUrl]);

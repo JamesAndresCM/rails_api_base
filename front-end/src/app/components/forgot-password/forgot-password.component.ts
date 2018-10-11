@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from '../../services/alert.service'
+import { MatSnackBar } from '@angular/material';
 import { PasswordService } from '../../services/password.service'
 import { first } from 'rxjs/operators';
 
@@ -25,7 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private alertService: AlertService,
+    private alertService: MatSnackBar,
     private passwordService: PasswordService
   ) { }
 
@@ -49,11 +49,11 @@ export class ForgotPasswordComponent implements OnInit {
       .subscribe(
         data => {
             if (data.status == 404){
-                this.alertService.error(data.msg);
+                this.alertService.open(data.msg, "Error");
                 this.submitted = false;
                 this.loading = false;
             }else{
-                this.alertService.success(data.msg);
+                this.alertService.open(data.msg, "Success");
                 this.loading = false;
                 this.submitted = false;
                 this.reset();

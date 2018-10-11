@@ -4,6 +4,9 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav>
     <mat-nav-list>
+      <!--
+        https://github.com/angular/material2/issues/3215
+      -->
       <a mat-list-item style="border-bottom: 1px solid gainsboro" (click)="sidenav.close()" >
         <mat-icon>menu</mat-icon>
         <span style="margin: 0 auto">Main</span>
@@ -35,8 +38,7 @@
         </mat-toolbar>
 <br><br>
 <div class="my-content">
-    <section id="main">
-      <alert></alert>
+    <section style="margin-top: 50px" id="main">
       <router-outlet></router-outlet>
     </section>
   </div>

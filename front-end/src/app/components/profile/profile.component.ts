@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { AlertService } from '../../services/alert.service';
+import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
 import { Location } from '@angular/common';
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService, 
-    private alertService: AlertService,
+    private alertService: MatSnackBar,
     private router: Router, 
     private route: ActivatedRoute,
     private dialog: MatDialog,

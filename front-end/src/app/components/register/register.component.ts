@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
-import { AlertService } from '../../services/alert.service';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private _registerService: RegisterService,
-    private alertService: AlertService
+    private alertService: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
           if (response.status == 422){
             for (var key in response.msg){
                 let error_msg = key.charAt(0).toUpperCase() + key.slice(1)+": "+response.msg[key];
-                this.alertService.error(error_msg);
+                this.alertService.open(error_msg, "Error");
                 this.loading = false;    
             } 
           }else{
@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
             localStorage.setItem('currentUser', JSON.stringify(response));
             this.router.navigate(['/home']);
             location.reload();
-            this.alertService.success("Wellcome", true);
+            this.alertService.open("Wellcome","Success");
           }
 					//console.log(response);
 				});
