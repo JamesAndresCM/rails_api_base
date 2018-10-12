@@ -7,7 +7,7 @@
       <!--
         https://github.com/angular/material2/issues/3215
       -->
-      <a mat-list-item style="border-bottom: 1px solid gainsboro" (click)="sidenav.close()" >
+      <a mat-list-item class="mat" (click)="sidenav.close()" >
         <mat-icon>menu</mat-icon>
         <span style="margin: 0 auto">Main</span>
       </a>
@@ -15,11 +15,15 @@
         <mat-icon mat-list-icon>home</mat-icon>
         <span mat-line>Home</span>
       </a>
-      <a mat-list-item (click)="sidenav.close()" *ngIf="_currentUser" [routerLink]="['/profile/',_currentUser.id]">
+      <a mat-list-item (click)="sidenav.close()" 
+          *ngIf="islogged && _currentUser" 
+          [routerLink]="['/profile/',_currentUser.id]">
         <mat-icon mat-list-icon>account_circle</mat-icon>
         <span mat-line>Go to Profile</span>
       </a>
-      <a mat-list-item (click)="sidenav.close()" *ngIf="_currentUser?.role == 'admin'" [routerLink]="['/admin/dashboard']">
+      <a mat-list-item (click)="sidenav.close()" 
+          *ngIf="_currentUser?.role == 'admin'" 
+          [routerLink]="['/admin/dashboard']">
         <mat-icon mat-list-icon>supervisor_account</mat-icon>
         <span mat-line>Management Users</span>
       </a>
@@ -27,16 +31,34 @@
   </mat-sidenav>
 
   <mat-toolbar color="primary" class="fixed-header">
-        <button type="button" *ngIf="_currentUser" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.open()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <button type="button" 
+          *ngIf="islogged" 
+          aria-label="Toggle sidenav" 
+          mat-icon-button (click)="sidenav.open()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <button mat-button (click)="sidenav.close()" [routerLink]="['/']">Main</button>
-        <span class="example-spacer"></span>
-        <button (click)="sidenav.close()" *ngIf="!_currentUser" [routerLink]="['/login']" mat-button >Login</button>
-        <button (click)="sidenav.close()" *ngIf="!_currentUser" [routerLink]="['/register']" mat-button>Register</button>
-        <button (click)="sidenav.close()" *ngIf="_currentUser" style="background-color: crimson;"(click)="logout()" mat-button >Logout</button>
-        </mat-toolbar>
-<br><br>
+          <span class="example-spacer"></span>
+        <button (click)="sidenav.close()" 
+            *ngIf="!islogged" 
+            [routerLink]="['/login']" 
+            mat-button>
+            Login
+        </button>
+        <button (click)="sidenav.close()" 
+            *ngIf="!islogged" 
+            [routerLink]="['/register']" 
+            mat-button>
+            Register
+        </button>
+        <button (click)="sidenav.close()" 
+            *ngIf="islogged" 
+            style="background-color: crimson;"
+            (click)="logout()" 
+            mat-button>
+            Logout
+        </button>
+  </mat-toolbar>
 <div class="my-content">
     <section style="margin-top: 50px" id="main">
       <router-outlet></router-outlet>

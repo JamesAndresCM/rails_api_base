@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';
-import { first } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { User } from '../../models/user';
 import { MatDialog } from '@angular/material';
@@ -32,22 +31,18 @@ export class ProfileComponent implements OnInit {
   }
 
   getUser(){
-    this.route.params.forEach((params: Params) => {
+    this.route.params.subscribe(params => {
     let user_id = params['id'];
 
-    let c_user = JSON.parse(localStorage.getItem('currentUser'));
-
-    this.userService.getById(user_id).pipe(first()).subscribe(
+    this.userService.getById(user_id).subscribe(
       result => {
           if(result["status"] == 404){
-            //this.router.navigate(['/profile',c_user.user_id])
             this.location.back();
           }else{
             this.user = result;
           }
       },
       error => {
-            //this.router.navigate(['/profile',c_user.user_id ]);
             this.location.back();
         });
     });
@@ -72,7 +67,7 @@ export class ProfileComponent implements OnInit {
 
   delUser(id: number){
     if(window.confirm('Are sure you want to delete your account ?') == true){
-      this.userService.deleteUser(id).pipe(first()).subscribe(
+      this.userService.deleteUser(id).subscribe(
         result => {
           if(result["status"] == 200){
             localStorage.removeItem('currentUser');

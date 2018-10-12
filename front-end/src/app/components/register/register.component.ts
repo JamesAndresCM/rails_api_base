@@ -1,36 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
-  public submitted = false;
-  public loading = false;
-  public data;
-  public registerForm: FormGroup;
+  private submitted:boolean = false;
+  private loading:boolean = false;
+  private registerForm: FormGroup;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private _registerService: RegisterService,
     private alertService: MatSnackBar
-  ) { }
-
-  ngOnInit() {
-      this.registerForm = this.formBuilder.group({
+  ) 
+  {
+    this.registerForm = this.formBuilder.group({
         username: ['',Validators.required],
         email: ['',Validators.required],
         password: ['',[Validators.required, Validators.minLength(8)]],
         password_confirmation: ['',[Validators.required, Validators.minLength(8)]]
-      });
+    }); 
   }
   
   get f() { return this.registerForm.controls; }
@@ -40,9 +37,8 @@ export class RegisterComponent implements OnInit {
     if(this.registerForm.invalid){ return; }
     
     this.loading = true;
-    this.data = '{"user": '+JSON.stringify(this.registerForm.value)+'}'
-    this._registerService.registerUser(this.data)
-      .pipe(first())
+    let data:any = {user: this.registerForm.value}
+    this._registerService.registerUser(data)
       .subscribe(
 			response => {
           if (response.status == 422){
@@ -52,13 +48,8 @@ export class RegisterComponent implements OnInit {
                 this.loading = false;    
             } 
           }else{
-            //console.log(response);
-            localStorage.setItem('currentUser', JSON.stringify(response));
-            this.router.navigate(['/home']);
             location.reload();
-            this.alertService.open("Wellcome","Success");
           }
-					//console.log(response);
 				});
 			}
 

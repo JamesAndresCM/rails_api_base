@@ -9,9 +9,7 @@
       <br>
       <button (click)="editUser(user?.id)" mat-raised-button style="background-color: dodgerblue; color: white">Edit Profile</button>
       <br><br>
-      Cancel my account
-      <br>
-      <button (click)="delUser(user?.id)" mat-raised-button style="background-color: red; color: white">Cancel Account</button>
+      <button *ngIf="user?.role != 'admin'" (click)="delUser(user?.id)" mat-raised-button style="background-color: red; color: white">Cancel Account</button>
     </mat-card-content>
 </mat-card>
 </div>

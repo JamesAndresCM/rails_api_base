@@ -1,7 +1,8 @@
-import {Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { UserService } from './services/user.service';
+import { MatSnackBar } from '@angular/material';
+import { AuthenticationService } from './services/authentication.service';
 
 
 @Component({
@@ -9,32 +10,32 @@ import { UserService } from './services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'app';
-
-  _currentUser: any;
-  role: string;
-  constructor(private router: Router, private userService: UserService) {
+export class AppComponent {
+  private _currentUser: any;
+  private islogged: boolean;
+  
+  constructor(private router: Router, 
+              private userService: UserService, 
+              private auth: AuthenticationService,
+              private alertService: MatSnackBar) 
+  {
+    this.getCurrentUser();
+    this.islogged = this.auth.isLoggedIn();  
   }
   
-  ngOnInit() {
-    this.getCurrentUser();
-  }
 
   logout(){
-    localStorage.removeItem('currentUser');
-    location.reload();
-    this.router.navigate(['/login']);
+    this.auth.logout();
+    this.islogged = false;
+    this.alertService.open("Logout Success", "Success");    
   }
 
   getCurrentUser(){
-    let id = JSON.parse(localStorage.getItem('currentUser'));
-
+    let id = this.auth.getCurrentUserId();
     if(id){
-      id = id.user_id;
-      this.userService.getById(id).pipe(first()).subscribe(
-        result => {
-              this._currentUser = result;
+      this.userService.getById(id).subscribe(
+         result => {
+            this._currentUser = result;
         },
         error => {
           console.log(error);
