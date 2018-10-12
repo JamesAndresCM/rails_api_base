@@ -9,7 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  private currentUser: any;
+  currentUser: any;
   constructor(private userService: UserService,private auth: AuthenticationService) { 
     let id = this.auth.getCurrentUserId();
     this.userService.getById(id).subscribe(

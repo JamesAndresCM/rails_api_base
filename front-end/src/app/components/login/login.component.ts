@@ -11,10 +11,10 @@ import { MatSnackBar } from '@angular/material';
 })
 export class LoginComponent {
 
-  private loading:boolean = false;
-  private submitted:boolean = false;
-  private returnUrl:string;
-  private loginForm:FormGroup;
+  loading:boolean = false;
+  submitted:boolean = false;
+  returnUrl:string;
+  loginForm:FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,

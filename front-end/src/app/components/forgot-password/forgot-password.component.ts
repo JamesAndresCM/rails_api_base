@@ -17,10 +17,10 @@ export class ForgotPasswordComponent {
     this.myNgForm.resetForm();
   }
 
-  private loading:boolean = false;
-  private submitted:boolean = false;
-  private returnUrl: string;
-  private forgotForm: FormGroup;
+  loading:boolean = false;
+  submitted:boolean = false;
+  returnUrl: string;
+  forgotForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,

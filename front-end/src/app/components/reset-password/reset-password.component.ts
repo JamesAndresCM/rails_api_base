@@ -17,10 +17,10 @@ export class ResetPasswordComponent {
     this.myNgForm.resetForm();
   }
 
-  private loading:boolean = false;
-  private submitted:boolean = false;
-  private returnUrl: string;
-  private resetForm: FormGroup;
+  loading:boolean = false;
+  submitted:boolean = false;
+  returnUrl: string;
+  resetForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,

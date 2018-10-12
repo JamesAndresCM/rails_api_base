@@ -11,8 +11,8 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private _currentUser: any;
-  private islogged: boolean;
+  _currentUser: any;
+  islogged: boolean;
   
   constructor(private router: Router, 
               private userService: UserService, 

@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
-  private submitted:boolean = false;
-  private loading:boolean = false;
-  private registerForm: FormGroup;
+  submitted:boolean = false;
+  loading:boolean = false;
+  registerForm: FormGroup;
 
   constructor(
     private router: Router,
