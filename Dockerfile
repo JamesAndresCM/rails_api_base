@@ -1,5 +1,5 @@
 # Base image with ruby
-FROM ruby
+FROM ruby:2.6.3
 
 ENV PACKAGES tzdata git nodejs vim
 
