@@ -1,4 +1,4 @@
-name: Rails Tests
+name: Rails Api Base Github-Actions
 
 on:
   pull_request:
